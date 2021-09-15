@@ -54,6 +54,7 @@ class SharedPreferencesConfig extends AppBloc {
       case TypeNoteCard.longTerm:
         await _prefs.setString(
             'noteListlongTerm', Note.encode(noteListlongTerm));
+
         break;
       default:
         break;

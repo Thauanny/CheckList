@@ -28,12 +28,19 @@ class Note {
     );
   }
 
-  static String encode(List<Note> note) => json.encode(
+  static String encode(List<Note> note) {
+    try {
+      return json.encode(
         note
             .map<Map<String, dynamic>>(
                 (note) => Note.toMap(note, note.type.toString()))
             .toList(),
       );
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
 
   static List<Note> decode(String note) {
     try {
@@ -41,6 +48,7 @@ class Note {
           .map<Note>((item) => Note.fromJson(item))
           .toList();
     } catch (e) {
+      print(e);
       return null;
     }
   }

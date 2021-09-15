@@ -37,6 +37,31 @@ class AppBloc extends Bloc<AppEvent, AppState> {
       yield AppNoteRegistred();
     } else if (event is AppNoteLoaded) {
       yield AppAddNoteLoaded();
+    } else if (event is AppDeleteNote) {
+      try {
+        switch (event.cardNumber) {
+          case 1:
+            sharedPreferencesConfig.noteListWithDeadline.removeAt(event.index);
+            sharedPreferencesConfig.setNotes(TypeNoteCard.withDeadline);
+
+            break;
+          case 2:
+            sharedPreferencesConfig.noteLisimportant.removeAt(event.index);
+            sharedPreferencesConfig.setNotes(TypeNoteCard.important);
+            break;
+          case 3:
+            sharedPreferencesConfig.noteListNoDeadline.removeAt(event.index);
+            sharedPreferencesConfig.setNotes(TypeNoteCard.noDeadline);
+            break;
+          default:
+            sharedPreferencesConfig.noteListlongTerm.removeAt(event.index);
+            sharedPreferencesConfig.setNotes(TypeNoteCard.longTerm);
+            break;
+        }
+        yield AppRemoveSucess();
+      } catch (e) {
+        yield AppRemoveError();
+      }
     }
   }
 }

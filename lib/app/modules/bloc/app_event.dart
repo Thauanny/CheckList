@@ -40,3 +40,10 @@ class AppAddNoteTypeLongTerm extends AppEvent {
 }
 
 class AppNoteLoaded extends AppEvent {}
+
+class AppDeleteNote extends AppEvent {
+  final int cardNumber;
+  final int index;
+
+  AppDeleteNote(this.cardNumber, this.index);
+}

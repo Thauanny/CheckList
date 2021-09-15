@@ -1,12 +1,13 @@
 import 'package:checklist/app/Shared/vertical_padding.dart';
 import 'package:checklist/app/modules/bloc/app_bloc.dart';
+import 'package:checklist/app/modules/models/note_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'color_by_card_number.dart';
 
 Widget noteByCardNumber(BuildContext context, int cardNumber) {
-  var cardNumberToListName;
+  List<Note> cardNumberToListName;
   return BlocBuilder<AppBloc, AppState>(
     builder: (context, state) {
       final appBloc = BlocProvider.of<AppBloc>(context);
@@ -64,7 +65,10 @@ Widget noteByCardNumber(BuildContext context, int cardNumber) {
                                           ),
                                         ),
                                         InkWell(
-                                          onTap: () {},
+                                          onTap: () {
+                                            _showMyDialog(context, appBloc,
+                                                index, cardNumber);
+                                          },
                                           child: Icon(
                                             Icons.delete,
                                             color:
@@ -104,6 +108,54 @@ Widget noteByCardNumber(BuildContext context, int cardNumber) {
               style:
                   TextStyle(color: colorByCardNumber(cardNumber), fontSize: 18),
             );
+    },
+  );
+}
+
+Future<void> _showMyDialog(
+    BuildContext context, AppBloc appBloc, int index, int cardNumber) async {
+  return showDialog<void>(
+    context: context,
+    barrierDismissible: false,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Remover Nota',
+            style: TextStyle(
+              color: colorByCardNumber(cardNumber),
+            )),
+        content: SingleChildScrollView(
+          child: ListBody(
+            children: [
+              Text('Voce tem certeza que deseja remover essa nota?',
+                  style: TextStyle(
+                    color: colorByCardNumber(cardNumber),
+                  )),
+            ],
+          ),
+        ),
+        actions: [
+          TextButton(
+            child: Text('Cancelar',
+                style: TextStyle(
+                  color: colorByCardNumber(cardNumber),
+                )),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          TextButton(
+            child: Text('Sim',
+                style: TextStyle(
+                  color: colorByCardNumber(cardNumber),
+                )),
+            onPressed: () {
+              appBloc.add(AppDeleteNote(cardNumber, index));
+
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
     },
   );
 }
