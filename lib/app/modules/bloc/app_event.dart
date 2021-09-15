@@ -21,7 +21,6 @@ class AppAddNoteTypeImportant extends AppEvent {
       {@required this.message, @required this.date, @required this.type});
 }
 
-
 class AppAddNoteTypeNoDeadline extends AppEvent {
   final String message;
   final String date;
@@ -31,7 +30,6 @@ class AppAddNoteTypeNoDeadline extends AppEvent {
       {@required this.message, @required this.date, @required this.type});
 }
 
-
 class AppAddNoteTypeLongTerm extends AppEvent {
   final String message;
   final String date;
@@ -40,3 +38,5 @@ class AppAddNoteTypeLongTerm extends AppEvent {
   AppAddNoteTypeLongTerm(
       {@required this.message, @required this.date, @required this.type});
 }
+
+class AppNoteLoaded extends AppEvent {}

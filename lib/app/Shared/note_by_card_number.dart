@@ -12,16 +12,20 @@ Widget noteByCardNumber(BuildContext context, int cardNumber) {
       final appBloc = BlocProvider.of<AppBloc>(context);
       switch (cardNumber) {
         case 1:
-          cardNumberToListName = appBloc.noteListWithDeadline;
+          cardNumberToListName =
+              appBloc.sharedPreferencesConfig.noteListWithDeadline;
           break;
         case 2:
-          cardNumberToListName = appBloc.noteLisimportant;
+          cardNumberToListName =
+              appBloc.sharedPreferencesConfig.noteLisimportant;
           break;
         case 3:
-          cardNumberToListName = appBloc.noteListNoDeadline;
+          cardNumberToListName =
+              appBloc.sharedPreferencesConfig.noteListNoDeadline;
           break;
         default:
-          cardNumberToListName = appBloc.noteListlongTerm;
+          cardNumberToListName =
+              appBloc.sharedPreferencesConfig.noteListlongTerm;
           break;
       }
 

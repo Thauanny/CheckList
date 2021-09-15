@@ -4,6 +4,7 @@ import 'package:checklist/app/Shared/color_by_card_number.dart';
 
 import 'package:checklist/app/Shared/note_by_card_number.dart';
 import 'package:checklist/app/Shared/vertical_padding.dart';
+import 'package:checklist/app/configs/shared_preferences_config.dart';
 import 'package:checklist/app/modules/bloc/app_bloc.dart';
 import 'package:checklist/app/modules/register_note/register_note_provider.dart';
 import 'package:flutter/material.dart';
@@ -114,16 +115,9 @@ class _HomePageState extends State<HomePage> {
               ),
               Align(
                 alignment: Alignment.center,
-                child: BlocBuilder<AppBloc, AppState>(
+                child: BlocBuilder<SharedPreferencesConfig, AppState>(
                   builder: (context, state) {
-                    return !(state is AppNoteRegistred)
-                        ? Text(
-                            'Adicione notas!',
-                            style: TextStyle(
-                                color: colorByCardNumber(cardNumber),
-                                fontSize: 18),
-                          )
-                        : noteByCardNumber(context, cardNumber);
+                    return noteByCardNumber(context, cardNumber);
                   },
                 ),
               ),
